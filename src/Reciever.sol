@@ -139,7 +139,7 @@ contract Receiver is CCIPReceiver, OwnerIsCreator {
             any2EvmMessage.data,
             (uint256, uint256)
         );
-        GoFundMe projectIndex = i_controller.getProject(_index);
+        GoFundMe projectIndex = i_controller.getProject(1);
 
         i_usdcToken.safeApprove(
             address(projectIndex),

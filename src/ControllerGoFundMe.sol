@@ -23,12 +23,13 @@ contract ControllerGoFundMe {
     }
 
     function createNewProject() external {
-        DeployFundMe deployFundMe = new DeployFundMe();
-        fundMe = deployFundMe.run(msg.sender);
+        // DeployFundMe deployFundMe = new DeployFundMe(); // disabled for testing
+        // fundMe = deployFundMe.run(msg.sender);
+        fundMe = new GoFundMe(address(usdc), msg.sender);
         goFundMeProjects.push(fundMe);
         projectCount++;
 
-        usdc.safeApprove(address(fundMe), type(uint256).max);
+        // usdc.safeApprove(address(fundMe), type(uint256).max);
         emit ProjectCreated(msg.sender, fundMe);
     }
 
@@ -39,5 +40,9 @@ contract ControllerGoFundMe {
     function getProject(uint256 _index) external view returns (GoFundMe) {
         require(_index < projectCount, "Index out of bounds");
         return goFundMeProjects[_index];
+    }
+
+    function getUsdcAddress () external view returns (address) {
+        return address(usdc);
     }
 }
